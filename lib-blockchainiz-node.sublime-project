@@ -6,7 +6,8 @@
       "name": "Root",
       "folder_exclude_patterns": [
         "node_modules",
-        "source"
+        "source",
+        "test"
       ],
       "file_exclude_patterns": [
         ".*",
@@ -17,6 +18,10 @@
     {
       "path": "source",
       "name": "Source"
+    },
+    {
+      "path": "test",
+      "name": "Test"
     }
   ]
 }
