@@ -1,6 +1,6 @@
 {
   "name": "blockchainiz",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A node library to interact more easily with the Blockchainiz API",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/KevinBockelandt/lib-blockchainiz-node/issues"
   },
-  "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme"
+  "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme",
+  "dependencies": {
+    "request": "^2.74.0"
+  }
 }
