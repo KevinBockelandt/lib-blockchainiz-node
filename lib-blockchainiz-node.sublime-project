@@ -1,0 +1,22 @@
+{
+  "folders":
+  [
+    {
+      "path": ".",
+      "name": "Root",
+      "folder_exclude_patterns": [
+        "node_modules",
+        "source"
+      ],
+      "file_exclude_patterns": [
+        ".*",
+        "LICENSE",
+        "lib-blockchainiz-node.sublime-project"
+      ]
+    },
+    {
+      "path": "source",
+      "name": "Source"
+    }
+  ]
+}

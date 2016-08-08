@@ -1,0 +1,26 @@
+{
+  "name": "blockchainiz",
+  "version": "1.0.0",
+  "description": "A node library to interact more easily with the Blockchainiz API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinBockelandt/lib-blockchainiz-node.git"
+  },
+  "keywords": [
+    "blockchain",
+    "blockchainiz",
+    "api",
+    "bitcoin",
+    "ethereum"
+  ],
+  "author": "Utocat (Kevin Bockelandt)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinBockelandt/lib-blockchainiz-node/issues"
+  },
+  "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme"
+}
