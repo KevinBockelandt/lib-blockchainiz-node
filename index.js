@@ -1,7 +1,5 @@
 
-exports.getInfoNodeBitcoin = function() {
-  'use strict';
+const info = require('./source/info');
 
-  console.log('Test message');
-  return 2;
-};
+
+exports.getInfoNodeBitcoin = info.getInfoNodeBitcoin;

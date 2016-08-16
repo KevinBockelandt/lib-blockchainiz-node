@@ -14,8 +14,16 @@ describe('Infos about nodes related methods', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should return the value 2', function (done) {
-    blockchainiz.getInfoNodeBitcoin().should.be.exactly(2);
-    done();
+    blockchainiz.getInfoNodeBitcoin(function(err, data) {
+      if (err) {
+        console.log(err);
+      }
+      data.version.should.be.a.Number();
+      data.protocolVersion.should.be.a.Number();
+      data.blockNumber.should.be.a.Number();
+      data.difficulty.should.be.a.Number();
+      done();
+    });
   });
 
 });
