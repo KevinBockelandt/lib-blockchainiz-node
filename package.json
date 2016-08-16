@@ -4,6 +4,8 @@
   "description": "A node library to interact more easily with the Blockchainiz API",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --ext .js --cache",
+    "pretest": "npm run lint",
     "test": "mocha --reporter spec",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
@@ -26,6 +28,7 @@
   "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme",
   "dependencies": {
     "coveralls": "^2.11.12",
+    "eslint": "^3.3.1",
     "istanbul": "^0.4.4",
     "mocha": "^3.0.2",
     "request": "^2.74.0",
