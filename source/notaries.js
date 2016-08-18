@@ -1,5 +1,7 @@
 /// MODULES /////////////////////////////////////////////////////////////////////
 
+const request = require('request');
+const config = require('./config');
 const helper = require('./helper_functions');
 
 /// FUNCTIONS ///////////////////////////////////////////////////////////////////
@@ -18,19 +20,19 @@ exports.postNotary = function(publicKey, privateKey, blockchain, format, data, c
   }
 
   // Check the blockchain parameter is OK
-  if (typeof blockchain !== 'string' || (blockchain !== 'BTC' && blockchain !== 'ETH')) {
+  if (!helper.isBlockchainParameterOk(blockchain)) {
     callback(new Error('ERROR: the blockchain type is not provided or wrong'));
     return;
   }
 
   // Check the format parameter is OK
-  if (typeof format !== 'string' || (format !== 'hex' && format !== 'base64' && format !== 'ascii')) {
+  if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
     return;
   }
 
   // Check the data to notarize exists and are a string
-  if (typeof format !== 'string') {
+  if (typeof data !== 'string') {
     callback(new Error('ERROR: the data to notarize should be provided as a string'));
     return;
   }
@@ -56,4 +58,36 @@ exports.postNotary = function(publicKey, privateKey, blockchain, format, data, c
   );
 };
 
+exports.getNotary = function(blockchain, format, txid, callback) {
+  'use strict';
+
+  // Check the blockchain parameter is OK
+  if (!helper.isBlockchainParameterOk(blockchain)) {
+    callback(new Error('ERROR: the blockchain type is not provided or wrong'));
+    return;
+  }
+
+  // Check the format parameter is OK
+  if (!helper.isFormatParameterOk(format)) {
+    callback(new Error('ERROR: the format type is not provided or wrong'));
+    return;
+  }
+
+  // Check the txid parameter
+  if (typeof txid !== 'string') {
+    callback(new Error('ERROR: the txid parameter should be present and a string'));
+    return;
+  }
+
+
+  // Do the request to blockchainiz
+  request({
+    url: config.chosenUrl + '/notary/' + txid + '?blockchain=' + blockchain + '&format=' + format,
+    method: 'GET',
+    json: true,
+  },
+  function(err, res, body) {
+    callback(err, body);
+  });
+};
 
