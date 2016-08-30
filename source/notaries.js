@@ -79,7 +79,6 @@ exports.getNotary = function(blockchain, format, txid, callback) {
     return;
   }
 
-
   // Do the request to blockchainiz
   request({
     url: config.chosenUrl + '/notary/' + txid + '?blockchain=' + blockchain + '&format=' + format,
@@ -91,3 +90,37 @@ exports.getNotary = function(blockchain, format, txid, callback) {
   });
 };
 
+exports.getNotaries = function(publicKey, privateKey, blockchain, format, callback) {
+  'use strict';
+
+  // Check the blockchain parameter is OK
+  if (!helper.isBlockchainParameterOk(blockchain)) {
+    callback(new Error('ERROR: the blockchain type is not provided or wrong'));
+    return;
+  }
+
+  // Check the format parameter is OK
+  if (!helper.isFormatParameterOk(format)) {
+    callback(new Error('ERROR: the format type is not provided or wrong'));
+    return;
+  }
+
+  // Do the request to blockchainiz via the helper function
+  helper.requestBlockchainiz(
+    publicKey,
+    privateKey,
+    {
+      blockchain: blockchain,
+      format: format,
+    },
+    '/notaries?blockchain=' + blockchain + '&format=' + format,
+    'GET',
+    function (err, res, body) {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, body);
+      }
+    }
+  );
+};
