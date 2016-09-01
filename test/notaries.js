@@ -4,7 +4,7 @@
 const should = require('should');
 const blockchainiz = require('../index');
 const setupSpecific = require('./setup_specific');
-const notaries = require('../source/notaries');
+const helper = require('./helper_functions');
 
 /// Tests /////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,9 @@ describe('Notaries related methods', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should notarize some data inside a BTC transaction', function (done) {
-    notaries.postNotary(
+    this.timeout(4000);
+
+    blockchainiz.postNotary(
       setupSpecific.publicKey,
       setupSpecific.privateKey,
       'BTC',
@@ -29,13 +31,16 @@ describe('Notaries related methods', function () {
         data.txid.should.be.a.String();
         testTxid = data.txid;
         done();
-      });
+      }
+    );
+
+    helper.pauseExecution(1000);
   });
 
   // //////////////////////////////////////////////////////////////////////////
 
   it('should retrieve data that were just notarized', function (done) {
-    notaries.getNotary(
+    blockchainiz.getNotary(
       'BTC',
       'ascii',
       testTxid,
@@ -53,7 +58,7 @@ describe('Notaries related methods', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should retrieve all data that were notarized with those keys', function (done) {
-    notaries.getNotaries(
+    blockchainiz.getNotaries(
       setupSpecific.publicKey,
       setupSpecific.privateKey,
       'BTC',
@@ -62,6 +67,7 @@ describe('Notaries related methods', function () {
         if (err) {
           console.log(err);
         }
+        console.log(data);
         let length = data.notaries.length;
         length.should.be.above(0);
         data.notaries[length-1].data.should.equal('Test string to notarize');
