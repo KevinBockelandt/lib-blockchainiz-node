@@ -6,7 +6,7 @@ const helper = require('./helper_functions');
 
 /// Tests /////////////////////////////////////////////////////////////////////
 
-blockchainiz.setKeys(setupSpecific.publicKey, setupSpecific.privateKey);
+blockchainiz.setKeys(helper.getPublicKey(), helper.getPrivateKey());
 
 describe('Notaries related methods', function () {
   'use strict';

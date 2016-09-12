@@ -7,7 +7,7 @@ const refContract = 327;  // this is a smart contract already on blockchainiz th
 
 /// Tests /////////////////////////////////////////////////////////////////////
 
-blockchainiz.setKeys(setupSpecific.publicKey, setupSpecific.privateKey);
+blockchainiz.setKeys(helper.getPublicKey(), helper.getPrivateKey());
 
 describe('Smart contract routes related', function () {
   'use strict';
