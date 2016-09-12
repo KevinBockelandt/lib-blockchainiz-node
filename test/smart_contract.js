@@ -18,7 +18,7 @@ describe('Smart contract routes related', function () {
   it('should upload a SC and return it\'s ABI and blockchainiz ID', function (done) {
     this.timeout(4000);
 
-    helper.readFile('test/testSmartContract.sol', function (data) {
+    helper.readFile('test_data/testSmartContract.sol', function (data) {
       blockchainiz.postContractEthereumSolidity(
         data,                 // the source code
         ['This is a string passed to the constructor'],

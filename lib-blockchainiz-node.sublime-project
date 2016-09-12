@@ -8,6 +8,7 @@
         "node_modules",
         "source",
         "test",
+        "test_data",
         "coverage"
       ],
       "file_exclude_patterns": [
@@ -23,6 +24,10 @@
     {
       "path": "test",
       "name": "Test"
+    },
+    {
+      "path": "test_data",
+      "name": "Test Data"
     }
   ]
 }
