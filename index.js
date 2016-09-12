@@ -5,9 +5,11 @@ const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
 
-const s = fs.statSync('./.env');
-if (s.isFile()) {
+try {
+  fs.accessSync('./.env');
   require('dotenv').config();
+} catch (ex) {
+  // eslint-disable-line
 }
 
 exports.setKeys = config.setKeys;
