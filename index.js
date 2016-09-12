@@ -1,9 +1,14 @@
 
-require('dotenv').config();
+const fs = require('fs');
 const config = require('./source/config');
 const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
+
+const s = fs.statSync('./.env');
+if (s.isFile()) {
+  require('dotenv').config();
+}
 
 exports.setKeys = config.setKeys;
 exports.useSandbox = config.useSandbox;
