@@ -1,6 +1,4 @@
 
-/// Modules ///////////////////////////////////////////////////////////////////
-
 const should = require('should');
 const blockchainiz = require('../index.js');
 

@@ -1,13 +1,12 @@
 
 const should = require('should');
 const blockchainiz = require('../index.js');
-const setupSpecific = require('./setup_specific');
 const helper = require('./helper_functions');
 const refContract = 327;  // this is a smart contract already on blockchainiz that contains everything needed for tests
 
 /// Tests /////////////////////////////////////////////////////////////////////
 
-blockchainiz.setKeys(helper.getPublicKey(), helper.getPrivateKey());
+blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
 
 describe('Smart contract routes related', function () {
   'use strict';
@@ -32,7 +31,6 @@ describe('Smart contract routes related', function () {
           data.abi.should.be.a.Array();
           data.id.should.be.a.Number();
           smartContractId = data.id;
-          console.log(data.id);
           done();
         }
       );

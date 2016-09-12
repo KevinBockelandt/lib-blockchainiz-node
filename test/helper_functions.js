@@ -1,5 +1,4 @@
 var fs = require('fs');
-const setupSpecific = require('./setup_specific');
 
 /**
  * Pause the execution for a specified duration
@@ -27,15 +26,3 @@ exports.readFile = function (filename, callback) {
     }
   });
 };
-
-exports.getPublicKey = function () {
-  return process.env.API_PUBLIC_KEY 
-    ? process.env.API_PUBLIC_KEY
-    : setupSpecific.publicKey;
-}
-
-exports.getPrivateKey = function () {
-  return process.env.API_PRIVATE_KEY 
-    ? process.env.API_PRIVATE_KEY
-    : setupSpecific.privateKey;
-}

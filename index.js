@@ -1,4 +1,5 @@
 
+require('dotenv').config();
 const config = require('./source/config');
 const info = require('./source/info');
 const notaries = require('./source/notaries');

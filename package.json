@@ -28,6 +28,7 @@
   "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme",
   "dependencies": {
     "coveralls": "^2.11.12",
+    "dotenv": "^2.0.0",
     "eslint": "^3.3.1",
     "istanbul": "^0.4.4",
     "mocha": "^3.0.2",

@@ -1,12 +1,11 @@
 
 const should = require('should');
 const blockchainiz = require('../index');
-const setupSpecific = require('./setup_specific');
 const helper = require('./helper_functions');
 
 /// Tests /////////////////////////////////////////////////////////////////////
 
-blockchainiz.setKeys(helper.getPublicKey(), helper.getPrivateKey());
+blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
 
 describe('Notaries related methods', function () {
   'use strict';
