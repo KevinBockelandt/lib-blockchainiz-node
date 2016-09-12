@@ -1,12 +1,12 @@
 
-/// Modules ///////////////////////////////////////////////////////////////////
-
 const should = require('should');
 const blockchainiz = require('../index');
 const setupSpecific = require('./setup_specific');
 const helper = require('./helper_functions');
 
 /// Tests /////////////////////////////////////////////////////////////////////
+
+blockchainiz.setKeys(setupSpecific.publicKey, setupSpecific.privateKey);
 
 describe('Notaries related methods', function () {
   'use strict';
@@ -19,8 +19,6 @@ describe('Notaries related methods', function () {
     this.timeout(4000);
 
     blockchainiz.postNotary(
-      setupSpecific.publicKey,
-      setupSpecific.privateKey,
       'BTC',
       'ascii',
       'Test string to notarize',
@@ -59,15 +57,12 @@ describe('Notaries related methods', function () {
 
   it('should retrieve all data that were notarized with those keys', function (done) {
     blockchainiz.getNotaries(
-      setupSpecific.publicKey,
-      setupSpecific.privateKey,
       'BTC',
       'ascii',
       function (err, data) {
         if (err) {
           console.log(err);
         }
-        console.log(data);
         let length = data.notaries.length;
         length.should.be.above(0);
         data.notaries[length-1].data.should.equal('Test string to notarize');

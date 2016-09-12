@@ -1,23 +1,13 @@
 /// MODULES /////////////////////////////////////////////////////////////////////
 
 const request = require('request');
-const config = require('./config');
+const config = require('./config').options;
 const helper = require('./helper_functions');
 
 /// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
-exports.postNotary = function(publicKey, privateKey, blockchain, format, data, callback) {
+exports.postNotary = function(blockchain, format, data, callback) {
   'use strict';
-
-  // Check the keys are OK
-  if (typeof publicKey !== 'string' || publicKey.length !== 32) {
-    callback(new Error('ERROR: the public key is invalid or not provided'));
-    return;
-  }
-  if (typeof privateKey !== 'string' || privateKey.length !== 128) {
-    callback(new Error('ERROR: the private key is invalid or not provided'));
-    return;
-  }
 
   // Check the blockchain parameter is OK
   if (!helper.isBlockchainParameterOk(blockchain)) {
@@ -39,8 +29,6 @@ exports.postNotary = function(publicKey, privateKey, blockchain, format, data, c
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    publicKey,
-    privateKey,
     {
       blockchain: blockchain,
       format: format,
@@ -90,7 +78,7 @@ exports.getNotary = function(blockchain, format, txid, callback) {
   });
 };
 
-exports.getNotaries = function(publicKey, privateKey, blockchain, format, callback) {
+exports.getNotaries = function(blockchain, format, callback) {
   'use strict';
 
   // Check the blockchain parameter is OK
@@ -107,8 +95,6 @@ exports.getNotaries = function(publicKey, privateKey, blockchain, format, callba
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    publicKey,
-    privateKey,
     {
       blockchain: blockchain,
       format: format,

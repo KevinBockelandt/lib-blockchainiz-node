@@ -2,28 +2,36 @@
 
 const crypto = require('crypto');
 const request = require('request');
-const config = require('./config');
+const config = require('./config').options;
 
 /// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
 /**
  * Perform an HTTP request on Blockchainiz
- * @param {string} publicKey The public key to use in the request
- * @param {string} privateKey The private key to use in the request
  * @param {object} rawBody Data to send inside of the request
  * @param {string} path Path of the URL after blockchainiz
  * @param {string} method HTTP verb to use
  * @param {function} callback Function to call back with the result
  * @return {none} none
  */
-exports.requestBlockchainiz = function (publicKey, privateKey, rawBody, path, method, callback) {
+exports.requestBlockchainiz = function (rawBody, path, method, callback) {
+
+  // Check the keys are OK
+  if (typeof config.publicKey !== 'string' || config.publicKey.length !== 32) {
+    callback(new Error('ERROR: the public key is invalid or not provided'));
+    return;
+  }
+  if (typeof config.privateKey !== 'string' || config.privateKey.length !== 128) {
+    callback(new Error('ERROR: the private key is invalid or not provided'));
+    return;
+  }
 
   // a number that will always be higher than the last one when calling the blockchainiz API
   var nonce = Date.now();
 
   // create the HMAC token that will be used to authorize the transaction on the blockchainiz API
   // we use a different URL for blockchainiz according to the fact that we are in debug or test mode
-  var hash = crypto.createHmac('SHA512', privateKey)
+  var hash = crypto.createHmac('SHA512', config.privateKey)
     .update('' + nonce + '' + config.chosenUrl + path + JSON.stringify(rawBody))
     .digest('hex');
 
@@ -31,7 +39,7 @@ exports.requestBlockchainiz = function (publicKey, privateKey, rawBody, path, me
   request({
     url: config.chosenUrl + path,
     headers: {
-      'x-Api-Key': publicKey,
+      'x-Api-Key': config.publicKey,
       'x-Api-Signature': hash,
       'x-Api-Nonce': nonce
     },

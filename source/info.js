@@ -1,6 +1,6 @@
 
 const request = require('request');
-const config = require('./config');
+const config = require('./config').options;
 
 
 exports.getInfoNodeBitcoin = function(callback) {
