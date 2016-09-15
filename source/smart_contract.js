@@ -3,12 +3,13 @@ const helper = require('./helper_functions');
 
 /// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
-exports.postContractEthereumSolidity = function(sourceCode, parameters, name, callbackUrl, callback) {
+exports.postContractEthereumSolidity = function(
+  sourceCode, parameters, name, callbackUrl, callback) {
   'use strict';
 
   // Check the sourceCode parameter is valid
   if (typeof sourceCode !== 'string') {
-    callback(new Error('ERROR: the source code for the smart contract is invalid or not provided'));
+    callback(new Error('ERROR: source code for the smart contract is invalid or not provided'));
     return;
   }
 
@@ -87,7 +88,7 @@ exports.postContractEthereumSolidityFunction = function(parameters, id, function
 
   // Check the functionName parameter is valid
   if (typeof functionName !== 'string') {
-    callback(new Error('ERROR: the name of the funcion is invalid or not provided'));
+    callback(new Error('ERROR: the name of the function is invalid or not provided'));
     return;
   }
 
