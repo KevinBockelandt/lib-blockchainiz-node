@@ -7,7 +7,6 @@ const blockchainiz = require('../index.js');
 describe('Infos about nodes related methods', function () {
   'use strict';
 
-
   // //////////////////////////////////////////////////////////////////////////
 
   it('should return infos about the Bitcoin node used by the API', function (done) {
@@ -22,7 +21,6 @@ describe('Infos about nodes related methods', function () {
       done();
     });
   });
-
 
   // //////////////////////////////////////////////////////////////////////////
 
@@ -40,5 +38,4 @@ describe('Infos about nodes related methods', function () {
       done();
     });
   });
-
 });

@@ -36,6 +36,7 @@ exports.postContractEthereumSolidity = function(
     '/contract/ethereum/solidity',
     'POST',
     function (err, res, body) {
+      /* istanbul ignore if */
       if (err) {
         callback(err, null);
       } else {
@@ -62,6 +63,7 @@ exports.getContract = function(id, callback) {
     '/contract/' + id,
     'GET',
     function (err, res, body) {
+      /* istanbul ignore if */
       if (err) {
         callback(err, null);
       } else {
@@ -100,6 +102,7 @@ exports.postContractEthereumSolidityFunction = function(parameters, id, function
     '/contract/ethereum/solidity/' + id + '/' + functionName,
     'POST',
     function (err, res, body) {
+      /* istanbul ignore if */
       if (err) {
         callback(err, null);
       } else {

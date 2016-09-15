@@ -7,8 +7,10 @@ exports.getInfoNodeBitcoin = function(callback) {
   'use strict';
 
   request(config.chosenUrl + '/info/node/bitcoin', function (err, res, body) {
+    /* istanbul ignore if */
     if (err) {
       callback(err, null, null);
+    /* istanbul ignore else */
     } else if (res.statusCode === 200) {
       let data = JSON.parse(body);
       callback(null, data);
@@ -23,8 +25,10 @@ exports.getInfoNodeEthereum = function(callback) {
   'use strict';
 
   request(config.chosenUrl + '/info/node/ethereum', function (err, res, body) {
+    /* istanbul ignore if */
     if (err) {
       callback(err, null, null);
+    /* istanbul ignore else */
     } else if (res.statusCode === 200) {
       let data = JSON.parse(body);
       callback(null, data);

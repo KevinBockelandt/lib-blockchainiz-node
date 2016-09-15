@@ -30,6 +30,7 @@ exports.postNotary = function(format, data, callback) {
     '/notary',
     'POST',
     function (err, res, body) {
+      /* istanbul ignore if */
       if (err) {
         callback(err, null);
       } else {
@@ -83,6 +84,7 @@ exports.getNotaries = function(format, callback) {
     '/notaries?blockchain=BTC&format=' + format,
     'GET',
     function (err, res, body) {
+      /* istanbul ignore if */
       if (err) {
         callback(err, null);
       } else {

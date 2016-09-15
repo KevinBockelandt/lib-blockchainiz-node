@@ -1,16 +1,8 @@
 
-const fs = require('fs');
 const config = require('./source/config');
 const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
-
-try {
-  fs.accessSync('./.env');
-  require('dotenv').config();
-} catch (ex) {
-  // eslint-disable-line
-}
 
 exports.setKeys = config.setKeys;
 exports.useSandbox = config.useSandbox;

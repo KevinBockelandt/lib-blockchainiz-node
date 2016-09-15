@@ -52,15 +52,6 @@ exports.requestBlockchainiz = function (rawBody, path, method, callback) {
 };
 
 /**
- * Check that a blockchain parameter has a correct value
- * @param {string} blockchain Should be 'BTC' or 'ETC'
- * @return {bool} True if the parameter is correct
- */
-exports.isBlockchainParameterOk = function (blockchain) {
-  return (typeof blockchain === 'string' && (blockchain === 'BTC' || blockchain === 'ETH'));
-};
-
-/**
  * Check that a format parameter has a correct value
  * @param {string} format Should be 'hex' or 'base64' or 'ascii'
  * @return {bool} True if the parameter is correct
