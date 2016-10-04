@@ -32,7 +32,6 @@ describe('Infos about nodes related methods', function () {
       data.networkProtocolVersion.should.be.a.String();
       data.ethereumProtocolVersion.should.be.a.String();
       data.solcVersion.should.be.a.String();
-      data.hashrate.should.be.a.Number();
       data.gasPrice.should.be.a.String();
       data.blockNumber.should.be.a.Number();
       done();

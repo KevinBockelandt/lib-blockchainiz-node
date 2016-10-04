@@ -20,7 +20,7 @@ This will download the package and add an entry in your project's `package.json`
 In your project's source code, you need to start by importing the blockchainiz package:
 
 ```javascript
-const blockchainiz = require('../index.js');
+const blockchainiz = require('blockchainiz');
 ```
 
 Then you need to choose if you want to use the production version of Blockchainiz or the Sandbox (for test purposes - the default value):
@@ -35,7 +35,7 @@ Finally you **need** to specify your set of keys to access the API (the library 
 blockchainiz.setKeys('your public key', 'your private key');
 ```
 
-## Reference
+## Reference REST API
 
 ### Set the API key set to use
 
@@ -207,6 +207,54 @@ txid (optional) | string | The ID number of the transaction
 
 > `result` will only be present if the function is constant and returns something.
 > `txid` will only be present if the function is not constant and so trigger an Ethereum transaction
+
+## Reference Socket.io
+
+In order to receiver a socket.io event, you must first subscribe to it. More informations on the full documentation of the API: https://www.sandbox.blockchainiz.io/#socket-io
+
+### Subscribe to new Ethereum block event
+
+```javascript
+blockchainiz.listenerNewBlockEthereum();
+```
+
+### Subscribe to smart contract event
+
+```javascript
+blockchainiz.listenerContract(contractId, eventName);
+```
+
+Parameter | Type | Description
+--------- | ---- | -----------
+contractId | number | Blockchainiz ID number of the contract to listen to
+eventName | string | Name of the Ethereum event to listen to
+
+### Receive error messages
+
+```javascript
+blockchainiz.onErrorText(function (event, error) {
+  // event contains the name of the event who triggered the error
+  // error contains the error message
+});
+```
+
+### Receive smart contract events
+
+```javascript
+blockchainiz.onListenerContract(function (id, event, data) {
+  // id is the blockchainiz id number of the smart contract
+  // event is the name of the Ethereum event received
+  // data is the data sent by the Ethereum event
+});
+```
+
+### Receive new Ethereum block event
+
+```javascript
+blockchainiz.onNewBlockEthereum(function (hash) {
+  // hash of the new block
+});
+```
 
 ## Next steps
 
