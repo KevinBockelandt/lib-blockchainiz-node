@@ -1,26 +1,38 @@
 
-const config = require('./source/config');
 const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
 const socketio = require('./source/socketio');
 
-exports.setKeys = config.setKeys;
-exports.useSandbox = config.useSandbox;
+module.exports = function (options) {
+  'use strict';
 
-exports.getInfoNodeBitcoin = info.getInfoNodeBitcoin;
-exports.getInfoNodeEthereum = info.getInfoNodeEthereum;
+  // TODO : check the content of the options object
 
-exports.postNotary = notaries.postNotary;
-exports.getNotary = notaries.getNotary;
-exports.getNotaries = notaries.getNotaries;
+  // Start the socket.io connection
+  let connection = socketio.connect(options);
 
-exports.postContractEthereumSolidity = smartContract.postContractEthereumSolidity;
-exports.getContract = smartContract.getContract;
-exports.postContractEthereumSolidityFunction = smartContract.postContractEthereumSolidityFunction;
+  return {
 
-exports.onErrorText = socketio.onErrorText;
-exports.onListenerContract = socketio.onListenerContract;
-exports.onNewBlockEthereum = socketio.onNewBlockEthereum;
-exports.listenerNewBlockEthereum = socketio.listenerNewBlockEthereum;
-exports.listenerContract = socketio.listenerContract;
+    // info node
+    getInfoNodeBitcoin: info.getInfoNodeBitcoin(options),
+    getInfoNodeEthereum: info.getInfoNodeEthereum(options),
+
+    // notaries
+    postNotary: notaries.postNotary(options),
+    getNotary: notaries.getNotary(options),
+    getNotaries: notaries.getNotaries(options),
+
+    // smart contract
+    postContractEthereumSolidity: smartContract.postContractEthereumSolidity(options),
+    getContract: smartContract.getContract(options),
+    postContractEthereumSolidityFunction: smartContract.postContractEthereumSolidityFunction(options),
+
+    // socket.io
+    onErrorText: socketio.onErrorText(connection),
+    onListenerContract: socketio.onListenerContract(connection),
+    onNewBlockEthereum: socketio.onNewBlockEthereum(connection),
+    listenerNewBlockEthereum: socketio.listenerNewBlockEthereum(connection),
+    listenerContract: socketio.listenerContract(connection),
+  };
+};

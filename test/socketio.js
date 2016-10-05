@@ -1,8 +1,15 @@
 const should = require('should');
-const blockchainiz = require('../index.js');
+const blockchainiz = require('../index.js')({
+  publicKey: process.env.API_PUBLIC_KEY,
+  privateKey: process.env.API_PRIVATE_KEY,
+  useSandbox: true,
+});
+
 // this is a smart contract already on blockchainiz 
 // that contains everything needed for tests
 const refContract = 327;
+
+var connectionCheck = false;
 var eventReceived = false;
 
 /// Tests /////////////////////////////////////////////////////////////////////
@@ -13,7 +20,7 @@ describe('Socket.io related tests', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should be done when we get a new Ethereum block', function (done) {
-    this.timeout(60000);
+    this.timeout(80000);
 
     blockchainiz.listenerNewBlockEthereum();
 
@@ -29,9 +36,8 @@ describe('Socket.io related tests', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should call a function on a smart contract', function (done) {
-    this.timeout(60000);
+    this.timeout(80000);
 
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.listenerContract(refContract, 'TestEvent');
     blockchainiz.postContractEthereumSolidityFunction(
       [],
@@ -57,7 +63,6 @@ describe('Socket.io related tests', function () {
   it('should return an error message from socketio', function (done) {
     this.timeout(10000);
 
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.onErrorText(function (event, error) {
       event.should.equal('listener_contract');
       error.should.equal('id not found');

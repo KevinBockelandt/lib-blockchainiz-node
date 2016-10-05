@@ -1,7 +1,11 @@
 
 const should = require('should');
-const blockchainiz = require('../index');
-const helper = require('./helper_functions');
+const helper = require('./a_setup');
+const blockchainiz = require('../index.js')({
+  publicKey: process.env.API_PUBLIC_KEY,
+  privateKey: process.env.API_PRIVATE_KEY,
+  useSandbox: true,
+});
 
 var testTxid;
 
@@ -14,7 +18,6 @@ describe('Notaries - postNotary', function () {
 
   it('should notarize some data inside a BTC transaction', function (done) {
     this.timeout(4000);
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
 
     blockchainiz.postNotary(
       'ascii',
@@ -36,7 +39,6 @@ describe('Notaries - postNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postNotary(
       'wrongFormat',
       'Test string to notarize',
@@ -50,7 +52,6 @@ describe('Notaries - postNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the data to notarize do not exist', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postNotary(
       'ascii',
       null,
@@ -64,7 +65,6 @@ describe('Notaries - postNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the data to notarize is not a string', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postNotary(
       'ascii',
       87533678,
@@ -84,7 +84,6 @@ describe('Notaries - getNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should retrieve data that were just notarized', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotary(
       'ascii',
       testTxid,
@@ -103,7 +102,6 @@ describe('Notaries - getNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotary(
       'wrongFormat',
       testTxid,
@@ -117,7 +115,6 @@ describe('Notaries - getNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the txid parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotary(
       'ascii',
       null,
@@ -131,7 +128,6 @@ describe('Notaries - getNotary', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotary(
       'ascii',
       098987876875,
@@ -151,7 +147,6 @@ describe('Notaries - getNotaries', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should retrieve all data that were notarized with those keys', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotaries(
       'ascii',
       function (err, data) {
@@ -171,7 +166,6 @@ describe('Notaries - getNotaries', function () {
   // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getNotaries(
       'wrongFormat',
       function (err, data) {

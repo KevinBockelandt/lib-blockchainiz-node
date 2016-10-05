@@ -1,41 +1,49 @@
-
-const config = require('./config').options;
+const config = require('./config');
 const io = require('socket.io-client');
 
-const blockchainizSocketIoClient = io.connect(
-  config.chosenSocketIoUrl, { path: '/api/v1/socket.io/' });
-
-blockchainizSocketIoClient.on('connect', function() {
-  console.log('Connected to Blockchainiz through socket.io'); // eslint-disable-line
-});
-
-exports.onErrorText = function(callback) {
+exports.connect = function(opt) {
   'use strict';
-  blockchainizSocketIoClient.on('error_text', function (event, error) {
-    callback(event, error);
-  });
+  return io.connect(
+    config.getSocketioUrl(opt.useSandbox), { path: '/api/v1/socket.io/' });
 };
 
-exports.onListenerContract = function(callback) {
+exports.onErrorText = function(con) {
   'use strict';
-  blockchainizSocketIoClient.on('listener_contract', function (id, event, data) {
-    callback(id, event, data);
-  });
+  return function(callback) {
+    con.on('error_text', function (event, error) {
+      callback(event, error);
+    });
+  };
 };
 
-exports.onNewBlockEthereum = function(callback) {
+exports.onListenerContract = function(con) {
   'use strict';
-  blockchainizSocketIoClient.on('new_block_ethereum', function (hash) {
-    callback(hash);
-  });
+  return function(callback) {
+    con.on('listener_contract', function (id, event, data) {
+      callback(id, event, data);
+    });
+  };
 };
 
-exports.listenerNewBlockEthereum = function() {
+exports.onNewBlockEthereum = function(con) {
   'use strict';
-  blockchainizSocketIoClient.emit('listener', 'new_block_ethereum');
+  return function(callback) {
+    con.on('new_block_ethereum', function (hash) {
+      callback(hash);
+    });
+  };
 };
 
-exports.listenerContract = function(idContract, nameEvent) {
+exports.listenerNewBlockEthereum = function(con) {
   'use strict';
-  blockchainizSocketIoClient.emit('listener_contract', idContract, nameEvent);
+  return function() {
+    con.emit('listener', 'new_block_ethereum');
+  };
+};
+
+exports.listenerContract = function(con) {
+  'use strict';
+  return function(idContract, nameEvent) {
+    con.emit('listener_contract', idContract, nameEvent);
+  };
 };

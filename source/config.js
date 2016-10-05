@@ -2,30 +2,23 @@
 const options = {
   sandboxUrl: 'https://sandbox.blockchainiz.io/api/v1',
   prodUrl: 'https://api.blockchainiz.io/api/v1',
-  chosenUrl: 'https://sandbox.blockchainiz.io/api/v1',
   sandboxSocketIoUrl: 'https://sandbox.blockchainiz.io',
   prodSocketIoUrl: 'https://api.blockchainiz.io',
-  chosenSocketIoUrl: 'https://sandbox.blockchainiz.io',
-  publicKey: '',
-  privateKey: '',
 };
 
-const setKeys = function (publicKey, privateKey) {
-  options.publicKey = publicKey;
-  options.privateKey = privateKey;
-};
-
-const useSandbox = function (shouldUseSandbox) {
-  options.chosenUrl = shouldUseSandbox
+const getApiUrl = function (useSandbox) {
+  return useSandbox
     ? options.sandboxUrl
     : options.prodUrl;
-  options.chosenSocketIoUrl = shouldUseSandbox
+};
+
+const getSocketioUrl = function (useSandbox) {
+  return useSandbox
     ? options.sandboxSocketIoUrl
     : options.prodSocketIoUrl;
 };
 
 module.exports = {
-  options: options,
-  setKeys: setKeys,
-  useSandbox: useSandbox,
+  getApiUrl: getApiUrl,
+  getSocketioUrl: getSocketioUrl,
 };

@@ -1,6 +1,10 @@
 
 const should = require('should');
-const blockchainiz = require('../index.js');
+const blockchainiz = require('../index.js')({
+  publicKey: process.env.API_PUBLIC_KEY,
+  privateKey: process.env.API_PRIVATE_KEY,
+  useSandbox: true,
+});
 
 /// Tests /////////////////////////////////////////////////////////////////////
 

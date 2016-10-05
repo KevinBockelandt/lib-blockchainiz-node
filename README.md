@@ -17,23 +17,23 @@ This will download the package and add an entry in your project's `package.json`
 
 ## Setup
 
-In your project's source code, you need to start by importing the blockchainiz package:
+In your project's source code, you need to start by importing the blockchainiz package and specify the options you want to use:
 
 ```javascript
-const blockchainiz = require('blockchainiz');
+const blockchainiz = require('blockchainiz')({
+  publicKey: 'your public key',
+  privateKey: 'your private key',
+  useSandbox: true,
+});
 ```
 
-Then you need to choose if you want to use the production version of Blockchainiz or the Sandbox (for test purposes - the default value):
+There are 3 options that you can set. You **NEED** to specify them in order for the package to work:
 
-```javascript
-blockchainiz.useSandbox(true);  // false to use the production version
-```
-
-Finally you **need** to specify your set of keys to access the API (the library won't work until you do so):
-
-```javascript
-blockchainiz.setKeys('your public key', 'your private key');
-```
+Option | Type | Description
+------ | ---- | -----------
+publicKey | string | Your Blockchainiz public key
+privateKey | string | Your Blockchainiz private key
+useSandbox | bool | True to use the sandbox version of the API
 
 ## Reference REST API
 
