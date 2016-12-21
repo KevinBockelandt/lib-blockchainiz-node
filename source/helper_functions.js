@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const request = require('request');
 const config = require('./config').options;
 
-/// FUNCTIONS ///////////////////////////////////////////////////////////////////
+// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
 /**
  * Perform an HTTP request on Blockchainiz
@@ -14,7 +14,6 @@ const config = require('./config').options;
  * @return {none} none
  */
 exports.requestBlockchainiz = function (rawBody, path, method, callback) {
-
   // Check the keys are OK
   if (typeof config.publicKey !== 'string' || config.publicKey.length !== 32) {
     callback(new Error('ERROR: the public key is invalid or not provided'));
@@ -26,12 +25,12 @@ exports.requestBlockchainiz = function (rawBody, path, method, callback) {
   }
 
   // a number that will always be higher than the last one when calling the blockchainiz API
-  var nonce = Date.now();
+  const nonce = Date.now();
 
   // create the HMAC token that will be used to authorize the transaction on the blockchainiz API
   // we use a different URL for blockchainiz according to the fact that we are in debug or test mode
-  var hash = crypto.createHmac('SHA512', config.privateKey)
-    .update('' + nonce + '' + config.chosenUrl + path + JSON.stringify(rawBody))
+  const hash = crypto.createHmac('SHA512', config.privateKey)
+    .update(`${nonce}${config.chosenUrl}${path}${JSON.stringify(rawBody)}`)
     .digest('hex');
 
   // make the request to blockchainiz to add the new entry in the smart contract
@@ -40,13 +39,13 @@ exports.requestBlockchainiz = function (rawBody, path, method, callback) {
     headers: {
       'x-Api-Key': config.publicKey,
       'x-Api-Signature': hash,
-      'x-Api-Nonce': nonce
+      'x-Api-Nonce': nonce,
     },
-    method: method,
+    method,
     json: true,
-    body: rawBody
+    body: rawBody,
   },
-  function(err, res2, body2) {
+  function (err, res2, body2) {
     callback(err, res2, body2);
   });
 };

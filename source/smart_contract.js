@@ -1,12 +1,10 @@
 
 const helper = require('./helper_functions');
 
-/// FUNCTIONS ///////////////////////////////////////////////////////////////////
+// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
-exports.postContractEthereumSolidity = function(
+exports.postContractEthereumSolidity = function (
   sourceCode, parameters, name, callbackUrl, callback) {
-  'use strict';
-
   // Check the sourceCode parameter is valid
   if (typeof sourceCode !== 'string') {
     callback(new Error('ERROR: source code for the smart contract is invalid or not provided'));
@@ -29,8 +27,8 @@ exports.postContractEthereumSolidity = function(
   helper.requestBlockchainiz(
     {
       source: sourceCode,
-      parameters: parameters,
-      name: name,
+      parameters,
+      name,
       callback: callbackUrl,
     },
     '/contract/ethereum/solidity',
@@ -46,9 +44,7 @@ exports.postContractEthereumSolidity = function(
   );
 };
 
-exports.getContract = function(id, callback) {
-  'use strict';
-
+exports.getContract = function (id, callback) {
   // Check the id parameter
   if (typeof id !== 'number') {
     callback(new Error('ERROR: the id parameter should be present and be an integer'));
@@ -58,9 +54,10 @@ exports.getContract = function(id, callback) {
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
     {
-      id: id,
+      id,
     },
-    '/contract/' + id,
+    `/contract/${id}`,
+
     'GET',
     function (err, res, body) {
       /* istanbul ignore if */
@@ -73,15 +70,13 @@ exports.getContract = function(id, callback) {
   );
 };
 
-exports.postContractEthereumSolidityFunction = function(parameters, id, functionName, callback) {
-  'use strict';
-
+exports.postContractEthereumSolidityFunction = function (parameters, id, functionName, callback) {
   // Check the 'parameters' parameter is valid. An array must be provided, even an empty one
   if (typeof parameters !== 'object' || !Array.isArray(parameters)) {
     callback(new Error('ERROR: the array of parameters is invalid or not provided'));
     return;
   }
-  
+
   // Check the id parameter
   if (typeof id !== 'number') {
     callback(new Error('ERROR: the id parameter should be present and be an integer'));
@@ -97,9 +92,9 @@ exports.postContractEthereumSolidityFunction = function(parameters, id, function
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
     {
-      parameters: parameters,
+      parameters,
     },
-    '/contract/ethereum/solidity/' + id + '/' + functionName,
+    `/contract/ethereum/solidity/${id}/${functionName}`,
     'POST',
     function (err, res, body) {
       /* istanbul ignore if */

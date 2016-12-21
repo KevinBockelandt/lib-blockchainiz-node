@@ -3,11 +3,9 @@ const request = require('request');
 const config = require('./config').options;
 const helper = require('./helper_functions');
 
-/// FUNCTIONS ///////////////////////////////////////////////////////////////////
+// FUNCTIONS ///////////////////////////////////////////////////////////////////
 
-exports.postNotary = function(format, data, callback) {
-  'use strict';
-
+exports.postNotary = function (format, data, callback) {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -24,8 +22,8 @@ exports.postNotary = function(format, data, callback) {
   helper.requestBlockchainiz(
     {
       blockchain: 'BTC',
-      format: format,
-      content: data
+      format,
+      content: data,
     },
     '/notary',
     'POST',
@@ -40,9 +38,7 @@ exports.postNotary = function(format, data, callback) {
   );
 };
 
-exports.getNotary = function(format, txid, callback) {
-  'use strict';
-
+exports.getNotary = function (format, txid, callback) {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -57,18 +53,16 @@ exports.getNotary = function(format, txid, callback) {
 
   // Do the request to blockchainiz
   request({
-    url: config.chosenUrl + '/notary/' + txid + '?blockchain=BTC&format=' + format,
+    url: `${config.chosenUrl}/notary/${txid}?blockchain=BTC&format=${format}`,
     method: 'GET',
     json: true,
   },
-  function(err, res, body) {
+  function (err, res, body) {
     callback(err, body);
   });
 };
 
-exports.getNotaries = function(format, callback) {
-  'use strict';
-
+exports.getNotaries = function (format, callback) {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -79,9 +73,10 @@ exports.getNotaries = function(format, callback) {
   helper.requestBlockchainiz(
     {
       blockchain: 'BTC',
-      format: format,
+      format,
     },
-    '/notaries?blockchain=BTC&format=' + format,
+    `/notaries?blockchain=BTC&format=${format}`,
+
     'GET',
     function (err, res, body) {
       /* istanbul ignore if */

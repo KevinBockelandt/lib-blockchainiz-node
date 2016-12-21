@@ -17,7 +17,7 @@ const useSandbox = function (shouldUseSandbox) {
 };
 
 module.exports = {
-  options: options,
-  setKeys: setKeys,
-  useSandbox: useSandbox,
+  options,
+  setKeys,
+  useSandbox,
 };
