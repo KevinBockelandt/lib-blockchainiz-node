@@ -1,49 +1,31 @@
 const config = require('./config');
 const io = require('socket.io-client');
 
-exports.connect = function(opt) {
-  'use strict';
-  return io.connect(
-    config.getSocketioUrl(opt.useSandbox), { path: '/api/v1/socket.io/' });
+exports.connect = opt => io.connect(config.getSocketioUrl(opt.useSandbox), {
+  path: '/api/v1/socket.io/' });
+
+exports.onErrorText = con => (callback) => {
+  con.on('error_text', (event, error) => {
+    callback(event, error);
+  });
 };
 
-exports.onErrorText = function(con) {
-  'use strict';
-  return function(callback) {
-    con.on('error_text', function (event, error) {
-      callback(event, error);
-    });
-  };
+exports.onListenerContract = con => (callback) => {
+  con.on('listener_contract', (id, event, data) => {
+    callback(id, event, data);
+  });
 };
 
-exports.onListenerContract = function(con) {
-  'use strict';
-  return function(callback) {
-    con.on('listener_contract', function (id, event, data) {
-      callback(id, event, data);
-    });
-  };
+exports.onNewBlockEthereum = con => (callback) => {
+  con.on('new_block_ethereum', (hash) => {
+    callback(hash);
+  });
 };
 
-exports.onNewBlockEthereum = function(con) {
-  'use strict';
-  return function(callback) {
-    con.on('new_block_ethereum', function (hash) {
-      callback(hash);
-    });
-  };
+exports.listenerNewBlockEthereum = con => () => {
+  con.emit('listener', 'new_block_ethereum');
 };
 
-exports.listenerNewBlockEthereum = function(con) {
-  'use strict';
-  return function() {
-    con.emit('listener', 'new_block_ethereum');
-  };
-};
-
-exports.listenerContract = function(con) {
-  'use strict';
-  return function(idContract, nameEvent) {
-    con.emit('listener_contract', idContract, nameEvent);
-  };
+exports.listenerContract = con => (idContract, nameEvent) => {
+  con.emit('listener_contract', idContract, nameEvent);
 };

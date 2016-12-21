@@ -7,9 +7,9 @@ const blockchainiz = require('../index.js')({
   useSandbox: true,
 });
 
-// this is a smart contract already on blockchainiz 
+// this is a smart contract already on blockchainiz
 // that contains everything needed for tests
-const refContract = 327;  
+const refContract = 31;
 
 var smartContractId;
 
@@ -36,6 +36,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
           data.abi.should.be.a.Array();
           data.id.should.be.a.Number();
           smartContractId = data.id;
+          console.log(data.id);
           done();
         }
       );

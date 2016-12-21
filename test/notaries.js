@@ -14,8 +14,6 @@ var testTxid;
 describe('Notaries - postNotary', function () {
   'use strict';
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should notarize some data inside a BTC transaction', function (done) {
     this.timeout(4000);
 
@@ -23,9 +21,7 @@ describe('Notaries - postNotary', function () {
       'ascii',
       'Test string to notarize',
       function (err, data) {
-        if (err) {
-          console.log(err);
-        }
+        if (err) console.log(err);
         should.not.exist(err);
         data.txid.should.be.a.String();
         testTxid = data.txid;
@@ -35,8 +31,6 @@ describe('Notaries - postNotary', function () {
 
     helper.pauseExecution(1000);
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
     blockchainiz.postNotary(
@@ -49,8 +43,6 @@ describe('Notaries - postNotary', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the data to notarize do not exist', function (done) {
     blockchainiz.postNotary(
       'ascii',
@@ -61,8 +53,6 @@ describe('Notaries - postNotary', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the data to notarize is not a string', function (done) {
     blockchainiz.postNotary(
@@ -81,16 +71,12 @@ describe('Notaries - postNotary', function () {
 describe('Notaries - getNotary', function () {
   'use strict';
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should retrieve data that were just notarized', function (done) {
     blockchainiz.getNotary(
       'ascii',
       testTxid,
       function (err, data) {
-        if (err) {
-          console.log(err);
-        }
+        if (err) console.error(err);
         data.data.should.equal('Test string to notarize');
         data.confirmations.should.be.a.Number();
         data.status.should.be.a.String();
@@ -98,8 +84,6 @@ describe('Notaries - getNotary', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
     blockchainiz.getNotary(
@@ -112,8 +96,6 @@ describe('Notaries - getNotary', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the txid parameter is null', function (done) {
     blockchainiz.getNotary(
       'ascii',
@@ -124,8 +106,6 @@ describe('Notaries - getNotary', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
     blockchainiz.getNotary(
@@ -144,8 +124,6 @@ describe('Notaries - getNotary', function () {
 describe('Notaries - getNotaries', function () {
   'use strict';
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should retrieve all data that were notarized with those keys', function (done) {
     blockchainiz.getNotaries(
       'ascii',
@@ -162,8 +140,6 @@ describe('Notaries - getNotaries', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the format parameter is invalid', function (done) {
     blockchainiz.getNotaries(

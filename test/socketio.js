@@ -5,9 +5,9 @@ const blockchainiz = require('../index.js')({
   useSandbox: true,
 });
 
-// this is a smart contract already on blockchainiz 
+// this is a smart contract already on blockchainiz
 // that contains everything needed for tests
-const refContract = 327;
+const refContract = 31;
 
 var connectionCheck = false;
 var eventReceived = false;
@@ -47,7 +47,7 @@ describe('Socket.io related tests', function () {
         if (err) {
           console.log(err);
         }
-        
+
         blockchainiz.onListenerContract(function (id, event, data) {
           id.should.equal(refContract);
           event.should.equal('TestEvent');

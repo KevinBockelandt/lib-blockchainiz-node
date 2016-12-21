@@ -1,16 +1,13 @@
-
 const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
 const socketio = require('./source/socketio');
 
-module.exports = function (options) {
-  'use strict';
-
+module.exports = (options) => {
   // TODO : check the content of the options object
 
   // Start the socket.io connection
-  let connection = socketio.connect(options);
+  const connection = socketio.connect(options);
 
   return {
 
@@ -26,7 +23,8 @@ module.exports = function (options) {
     // smart contract
     postContractEthereumSolidity: smartContract.postContractEthereumSolidity(options),
     getContract: smartContract.getContract(options),
-    postContractEthereumSolidityFunction: smartContract.postContractEthereumSolidityFunction(options),
+    postContractEthereumSolidityFunction:
+      smartContract.postContractEthereumSolidityFunction(options),
 
     // socket.io
     onErrorText: socketio.onErrorText(connection),

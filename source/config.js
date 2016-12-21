@@ -1,4 +1,3 @@
-
 const options = {
   sandboxUrl: 'https://sandbox.blockchainiz.io/api/v1',
   prodUrl: 'https://api.blockchainiz.io/api/v1',
@@ -6,19 +5,21 @@ const options = {
   prodSocketIoUrl: 'https://api.blockchainiz.io',
 };
 
-const getApiUrl = function (useSandbox) {
-  return useSandbox
+const getApiUrl = (useSandbox) => {
+  const apiUrl = useSandbox
     ? options.sandboxUrl
     : options.prodUrl;
+  return apiUrl;
 };
 
-const getSocketioUrl = function (useSandbox) {
-  return useSandbox
+const getSocketioUrl = (useSandbox) => {
+  const socketIoUrl = useSandbox
     ? options.sandboxSocketIoUrl
     : options.prodSocketIoUrl;
+  return socketIoUrl;
 };
 
 module.exports = {
-  getApiUrl: getApiUrl,
-  getSocketioUrl: getSocketioUrl,
+  getApiUrl,
+  getSocketioUrl,
 };

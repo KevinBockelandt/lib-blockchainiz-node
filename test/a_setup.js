@@ -1,7 +1,6 @@
-
 const fs = require('fs');
 
-// This block is used to get the environment variables necessary to perform 
+// This block is used to get the environment variables necessary to perform
 // the tests. There needs to be a file called .env in the root folder of the
 // project which contains:
 // API_PUBLIC_KEY="yourPublicKey"
@@ -32,10 +31,7 @@ exports.pauseExecution = function (duration) {
  */
 exports.readFile = function (filename, callback) {
   fs.readFile(filename, 'utf8', function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      callback(data);
-    }
+    if (err) console.error(err);
+    else callback(data);
   });
 };

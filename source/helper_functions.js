@@ -11,15 +11,14 @@ const config = require('./config');
  * @param {function} callback Function to call back with the result
  * @return {none} none
  */
-exports.requestBlockchainiz = function (opt, rawBody, path, method, callback) {
-
+exports.requestBlockchainiz = (opt, rawBody, path, method, callback) => {
   // a number that will always be higher than the last one when calling the blockchainiz API
-  var nonce = Date.now();
+  const nonce = Date.now();
 
   // create the HMAC token that will be used to authorize the transaction on the blockchainiz API
   // we use a different URL for blockchainiz according to the fact that we are in debug or test mode
-  var hash = crypto.createHmac('SHA512', opt.privateKey)
-    .update('' + nonce + '' + config.getApiUrl(opt.useSandbox) + path + JSON.stringify(rawBody))
+  const hash = crypto.createHmac('SHA512', opt.privateKey)
+    .update(`${nonce}${config.getApiUrl(opt.useSandbox)}${path}${JSON.stringify(rawBody)}`)
     .digest('hex');
 
   // make the request to blockchainiz to add the new entry in the smart contract
@@ -28,13 +27,13 @@ exports.requestBlockchainiz = function (opt, rawBody, path, method, callback) {
     headers: {
       'x-Api-Key': opt.publicKey,
       'x-Api-Signature': hash,
-      'x-Api-Nonce': nonce
+      'x-Api-Nonce': nonce,
     },
-    method: method,
+    method,
     json: true,
-    body: rawBody
+    body: rawBody,
   },
-  function(err, res2, body2) {
+  (err, res2, body2) => {
     callback(err, res2, body2);
   });
 };
@@ -44,6 +43,7 @@ exports.requestBlockchainiz = function (opt, rawBody, path, method, callback) {
  * @param {string} format Should be 'hex' or 'base64' or 'ascii'
  * @return {bool} True if the parameter is correct
  */
-exports.isFormatParameterOk = function (format) {
-  return (typeof format === 'string' && (format === 'hex' || format === 'base64' || format === 'ascii'));
-};
+exports.isFormatParameterOk = format => (
+  typeof format === 'string' &&
+  (format === 'hex' || format === 'base64' || format === 'ascii')
+);
