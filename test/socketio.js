@@ -15,10 +15,6 @@ var eventReceived = false;
 /// Tests /////////////////////////////////////////////////////////////////////
 
 describe('Socket.io related tests', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should be done when we get a new Ethereum block', function (done) {
     this.timeout(80000);
 
@@ -32,8 +28,6 @@ describe('Socket.io related tests', function () {
       }
     });
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should call a function on a smart contract', function (done) {
     this.timeout(80000);
@@ -58,8 +52,6 @@ describe('Socket.io related tests', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should return an error message from socketio', function (done) {
     this.timeout(10000);
 
@@ -70,5 +62,4 @@ describe('Socket.io related tests', function () {
     });
     blockchainiz.listenerContract(0, 'TestEvent');
   });
-
 });

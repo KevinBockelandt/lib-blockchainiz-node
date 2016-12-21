@@ -1,4 +1,3 @@
-
 const should = require('should');
 const helper = require('./a_setup');
 const blockchainiz = require('../index.js')({
@@ -12,8 +11,6 @@ var testTxid;
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Notaries - postNotary', function () {
-  'use strict';
-
   it('should notarize some data inside a BTC transaction', function (done) {
     this.timeout(4000);
 
@@ -69,8 +66,6 @@ describe('Notaries - postNotary', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Notaries - getNotary', function () {
-  'use strict';
-
   it('should retrieve data that were just notarized', function (done) {
     blockchainiz.getNotary(
       'ascii',
@@ -122,8 +117,6 @@ describe('Notaries - getNotary', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Notaries - getNotaries', function () {
-  'use strict';
-
   it('should retrieve all data that were notarized with those keys', function (done) {
     blockchainiz.getNotaries(
       'ascii',

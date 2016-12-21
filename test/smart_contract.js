@@ -1,4 +1,3 @@
-
 const should = require('should');
 const helper = require('./a_setup');
 const blockchainiz = require('../index.js')({
@@ -16,10 +15,6 @@ var smartContractId;
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - postContractEthereumSolidity', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should upload a SC and return it\'s ABI and blockchainiz ID', function (done) {
     this.timeout(4000);
 
@@ -43,8 +38,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     });
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the source code parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidity(
       null,
@@ -57,8 +50,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the source code parameter is invalid', function (done) {
     blockchainiz.postContractEthereumSolidity(
@@ -73,8 +64,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidity(
       'contract {}',
@@ -88,8 +77,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is invalid', function (done) {
     blockchainiz.postContractEthereumSolidity(
       'contract {}',
@@ -102,8 +89,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the name parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidity(
@@ -122,10 +107,6 @@ describe('Smart contract - postContractEthereumSolidity', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - getContract', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should retrieve informations about a smart contract', function (done) {
     blockchainiz.getContract(
       refContract,
@@ -140,8 +121,6 @@ describe('Smart contract - getContract', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is null', function (done) {
     blockchainiz.getContract(
       null,
@@ -151,8 +130,6 @@ describe('Smart contract - getContract', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the id parameter is not a number', function (done) {
     blockchainiz.getContract(
@@ -168,10 +145,6 @@ describe('Smart contract - getContract', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - postContractEthereumSolidityFunction', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should call a function on a smart contract', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
       [],
@@ -187,8 +160,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
       null,
@@ -200,8 +171,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the parameters parameter is invalid', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
@@ -215,8 +184,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
       [],
@@ -228,8 +195,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the id parameter is invalid', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
@@ -243,8 +208,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the functionName parameter is null', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(
       [],
@@ -256,8 +219,6 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
       }
     );
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should fail because the id parameter is invalid', function (done) {
     blockchainiz.postContractEthereumSolidityFunction(

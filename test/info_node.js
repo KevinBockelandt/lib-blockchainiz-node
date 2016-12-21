@@ -9,10 +9,6 @@ const blockchainiz = require('../index.js')({
 /// Tests /////////////////////////////////////////////////////////////////////
 
 describe('Infos about nodes related methods', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should return infos about the Bitcoin node used by the API', function (done) {
     blockchainiz.getInfoNodeBitcoin(function(err, data) {
       if (err) {
@@ -25,8 +21,6 @@ describe('Infos about nodes related methods', function () {
       done();
     });
   });
-
-  // //////////////////////////////////////////////////////////////////////////
 
   it('should return infos about the Ethereum node used by the API', function (done) {
     blockchainiz.getInfoNodeEthereum(function(err, data) {

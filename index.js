@@ -10,7 +10,6 @@ module.exports = (options) => {
   const connection = socketio.connect(options);
 
   return {
-
     // info node
     getInfoNodeBitcoin: info.getInfoNodeBitcoin(options),
     getInfoNodeEthereum: info.getInfoNodeEthereum(options),
@@ -32,5 +31,6 @@ module.exports = (options) => {
     onNewBlockEthereum: socketio.onNewBlockEthereum(connection),
     listenerNewBlockEthereum: socketio.listenerNewBlockEthereum(connection),
     listenerContract: socketio.listenerContract(connection),
+    socketIoConnection: connection,
   };
 };
