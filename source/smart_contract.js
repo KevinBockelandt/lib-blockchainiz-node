@@ -1,10 +1,7 @@
-
 const helper = require('./helper_functions');
 
-// FUNCTIONS ///////////////////////////////////////////////////////////////////
-
-exports.postContractEthereumSolidity = function (
-  sourceCode, parameters, name, callbackUrl, callback) {
+exports.postContractEthereumSolidity = opt => (
+  sourceCode, parameters, name, callbackUrl, callback) => {
   // Check the sourceCode parameter is valid
   if (typeof sourceCode !== 'string') {
     callback(new Error('ERROR: source code for the smart contract is invalid or not provided'));
@@ -25,26 +22,18 @@ exports.postContractEthereumSolidity = function (
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    {
-      source: sourceCode,
-      parameters,
-      name,
-      callback: callbackUrl,
-    },
+    opt,
+    { source: sourceCode, parameters, name, callback: callbackUrl },
     '/contract/ethereum/solidity',
     'POST',
-    function (err, res, body) {
+    (err, res, body) => {
       /* istanbul ignore if */
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, body);
-      }
-    }
-  );
+      if (err) callback(err, null);
+      else callback(null, body);
+    });
 };
 
-exports.getContract = function (id, callback) {
+exports.getContract = opt => (id, callback) => {
   // Check the id parameter
   if (typeof id !== 'number') {
     callback(new Error('ERROR: the id parameter should be present and be an integer'));
@@ -52,25 +41,14 @@ exports.getContract = function (id, callback) {
   }
 
   // Do the request to blockchainiz via the helper function
-  helper.requestBlockchainiz(
-    {
-      id,
-    },
-    `/contract/${id}`,
-
-    'GET',
-    function (err, res, body) {
-      /* istanbul ignore if */
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, body);
-      }
-    }
-  );
+  helper.requestBlockchainiz(opt, { id }, `/contract/${id}`, 'GET', (err, res, body) => {
+    /* istanbul ignore if */
+    if (err) callback(err, null);
+    else callback(null, body);
+  });
 };
 
-exports.postContractEthereumSolidityFunction = function (parameters, id, functionName, callback) {
+exports.postContractEthereumSolidityFunction = opt => (parameters, id, functionName, callback) => {
   // Check the 'parameters' parameter is valid. An array must be provided, even an empty one
   if (typeof parameters !== 'object' || !Array.isArray(parameters)) {
     callback(new Error('ERROR: the array of parameters is invalid or not provided'));
@@ -91,18 +69,13 @@ exports.postContractEthereumSolidityFunction = function (parameters, id, functio
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    {
-      parameters,
-    },
+    opt,
+    { parameters },
     `/contract/ethereum/solidity/${id}/${functionName}`,
     'POST',
-    function (err, res, body) {
+    (err, res, body) => {
       /* istanbul ignore if */
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, body);
-      }
-    }
-  );
+      if (err) callback(err, null);
+      else callback(null, body);
+    });
 };

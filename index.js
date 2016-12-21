@@ -1,19 +1,36 @@
-
-const config = require('./source/config');
 const info = require('./source/info');
 const notaries = require('./source/notaries');
 const smartContract = require('./source/smart_contract');
+const socketio = require('./source/socketio');
 
-exports.setKeys = config.setKeys;
-exports.useSandbox = config.useSandbox;
+module.exports = (options) => {
+  // TODO : check the content of the options object
 
-exports.getInfoNodeBitcoin = info.getInfoNodeBitcoin;
-exports.getInfoNodeEthereum = info.getInfoNodeEthereum;
+  // Start the socket.io connection
+  const connection = socketio.connect(options);
 
-exports.postNotary = notaries.postNotary;
-exports.getNotary = notaries.getNotary;
-exports.getNotaries = notaries.getNotaries;
+  return {
+    // info node
+    getInfoNodeBitcoin: info.getInfoNodeBitcoin(options),
+    getInfoNodeEthereum: info.getInfoNodeEthereum(options),
 
-exports.postContractEthereumSolidity = smartContract.postContractEthereumSolidity;
-exports.getContract = smartContract.getContract;
-exports.postContractEthereumSolidityFunction = smartContract.postContractEthereumSolidityFunction;
+    // notaries
+    postNotary: notaries.postNotary(options),
+    getNotary: notaries.getNotary(options),
+    getNotaries: notaries.getNotaries(options),
+
+    // smart contract
+    postContractEthereumSolidity: smartContract.postContractEthereumSolidity(options),
+    getContract: smartContract.getContract(options),
+    postContractEthereumSolidityFunction:
+      smartContract.postContractEthereumSolidityFunction(options),
+
+    // socket.io
+    onErrorText: socketio.onErrorText(connection),
+    onListenerContract: socketio.onListenerContract(connection),
+    onNewBlockEthereum: socketio.onNewBlockEthereum(connection),
+    listenerNewBlockEthereum: socketio.listenerNewBlockEthereum(connection),
+    listenerContract: socketio.listenerContract(connection),
+    socketIoConnection: connection,
+  };
+};

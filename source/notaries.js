@@ -1,11 +1,8 @@
-
 const request = require('request');
-const config = require('./config').options;
+const config = require('./config');
 const helper = require('./helper_functions');
 
-// FUNCTIONS ///////////////////////////////////////////////////////////////////
-
-exports.postNotary = function (format, data, callback) {
+exports.postNotary = opt => (format, data, callback) => {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -20,25 +17,18 @@ exports.postNotary = function (format, data, callback) {
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    {
-      blockchain: 'BTC',
-      format,
-      content: data,
-    },
+    opt,
+    { blockchain: 'BTC', format, content: data },
     '/notary',
     'POST',
-    function (err, res, body) {
+    (err, res, body) => {
       /* istanbul ignore if */
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, body);
-      }
-    }
-  );
+      if (err) callback(err, null);
+      else callback(null, body);
+    });
 };
 
-exports.getNotary = function (format, txid, callback) {
+exports.getNotary = opt => (format, txid, callback) => {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -53,16 +43,16 @@ exports.getNotary = function (format, txid, callback) {
 
   // Do the request to blockchainiz
   request({
-    url: `${config.chosenUrl}/notary/${txid}?blockchain=BTC&format=${format}`,
+    url: `${config.getApiUrl(opt.useSandbox)}/notary/${txid}?blockchain=BTC&format=${format}`,
     method: 'GET',
     json: true,
   },
-  function (err, res, body) {
+  (err, res, body) => {
     callback(err, body);
   });
 };
 
-exports.getNotaries = function (format, callback) {
+exports.getNotaries = opt => (format, callback) => {
   // Check the format parameter is OK
   if (!helper.isFormatParameterOk(format)) {
     callback(new Error('ERROR: the format type is not provided or wrong'));
@@ -71,20 +61,13 @@ exports.getNotaries = function (format, callback) {
 
   // Do the request to blockchainiz via the helper function
   helper.requestBlockchainiz(
-    {
-      blockchain: 'BTC',
-      format,
-    },
+    opt,
+    { blockchain: 'BTC', format },
     `/notaries?blockchain=BTC&format=${format}`,
-
     'GET',
-    function (err, res, body) {
+    (err, res, body) => {
       /* istanbul ignore if */
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, body);
-      }
-    }
-  );
+      if (err) callback(err, null);
+      else callback(null, body);
+    });
 };

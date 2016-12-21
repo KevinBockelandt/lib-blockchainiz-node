@@ -1,10 +1,8 @@
-
 const request = require('request');
-const config = require('./config').options;
+const config = require('./config');
 
-
-exports.getInfoNodeBitcoin = function (callback) {
-  request(`${config.chosenUrl}/info/node/bitcoin`, function (err, res, body) {
+exports.getInfoNodeBitcoin = opt => (callback) => {
+  request(`${config.getApiUrl(opt.useSandbox)}/info/node/bitcoin`, (err, res, body) => {
     /* istanbul ignore if */
     if (err) {
       callback(err, null, null);
@@ -18,9 +16,8 @@ exports.getInfoNodeBitcoin = function (callback) {
   });
 };
 
-
-exports.getInfoNodeEthereum = function (callback) {
-  request(`${config.chosenUrl}/info/node/ethereum`, function (err, res, body) {
+exports.getInfoNodeEthereum = opt => (callback) => {
+  request(`${config.getApiUrl(opt.useSandbox)}/info/node/ethereum`, (err, res, body) => {
     /* istanbul ignore if */
     if (err) {
       callback(err, null, null);

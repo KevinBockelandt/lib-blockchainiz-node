@@ -1,5 +1,17 @@
 const fs = require('fs');
 
+// This block is used to get the environment variables necessary to perform
+// the tests. There needs to be a file called .env in the root folder of the
+// project which contains:
+// API_PUBLIC_KEY="yourPublicKey"
+// API_PRIVATE_KEY="yourPrivateKey"
+try {
+  fs.accessSync('./.env');
+  require('dotenv').config();
+} catch (ex) {
+  console.log(ex);
+}
+
 /**
  * Pause the execution for a specified duration
  * @param {number} duration The duration of the pause in milliseconds
@@ -19,10 +31,7 @@ exports.pauseExecution = function (duration) {
  */
 exports.readFile = function (filename, callback) {
   fs.readFile(filename, 'utf8', function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      callback(data);
-    }
+    if (err) console.error(err);
+    else callback(data);
   });
 };

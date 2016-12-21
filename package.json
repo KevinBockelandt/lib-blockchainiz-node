@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KevinBockelandt/lib-blockchainiz-node.git"
+    "url": "git+https://github.com/utocat/lib-blockchainiz-node.git"
   },
   "keywords": [
     "blockchain",
@@ -23,9 +23,9 @@
   "author": "Utocat (Kevin Bockelandt)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KevinBockelandt/lib-blockchainiz-node/issues"
+    "url": "https://github.com/utocat/lib-blockchainiz-node/issues"
   },
-  "homepage": "https://github.com/KevinBockelandt/lib-blockchainiz-node#readme",
+  "homepage": "https://github.com/utocat/lib-blockchainiz-node#readme",
   "dependencies": {
     "coveralls": "^2.11.12",
     "dotenv": "^2.0.0",
@@ -33,13 +33,12 @@
     "istanbul": "^0.4.4",
     "mocha": "^3.0.2",
     "request": "^2.74.0",
-    "should": "^10.0.0"
+    "should": "^10.0.0",
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {
     "eslint": "^3.12.2",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.8.0"
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

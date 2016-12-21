@@ -1,22 +1,21 @@
-
 const should = require('should');
-const blockchainiz = require('../index.js');
-const helper = require('./helper_functions');
-// this is a smart contract already on blockchainiz 
+const helper = require('./a_setup');
+const blockchainiz = require('../index.js')({
+  publicKey: process.env.API_PUBLIC_KEY,
+  privateKey: process.env.API_PRIVATE_KEY,
+  useSandbox: true,
+});
+
+// this is a smart contract already on blockchainiz
 // that contains everything needed for tests
-const refContract = 327;  
+const refContract = 31;
 
 var smartContractId;
 
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - postContractEthereumSolidity', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should upload a SC and return it\'s ABI and blockchainiz ID', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     this.timeout(4000);
 
     helper.readFile('test_data/testSmartContract.sol', function (data) {
@@ -32,17 +31,14 @@ describe('Smart contract - postContractEthereumSolidity', function () {
           data.abi.should.be.a.Array();
           data.id.should.be.a.Number();
           smartContractId = data.id;
+          console.log(data.id);
           done();
         }
       );
     });
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the source code parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
-
     blockchainiz.postContractEthereumSolidity(
       null,
       ['This is a string'],
@@ -55,11 +51,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the source code parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
-
     blockchainiz.postContractEthereumSolidity(
       34577890,
       ['This is a string'],
@@ -72,11 +64,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
-
     blockchainiz.postContractEthereumSolidity(
       'contract {}',
       null,
@@ -89,11 +77,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
-
     blockchainiz.postContractEthereumSolidity(
       'contract {}',
       'This is a string',
@@ -106,11 +90,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the name parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
-
     blockchainiz.postContractEthereumSolidity(
       'contract {}',
       ['This is a string'],
@@ -127,12 +107,7 @@ describe('Smart contract - postContractEthereumSolidity', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - getContract', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should retrieve informations about a smart contract', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getContract(
       refContract,
       function(err, data) {
@@ -146,10 +121,7 @@ describe('Smart contract - getContract', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getContract(
       null,
       function(err, data) {
@@ -159,10 +131,7 @@ describe('Smart contract - getContract', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is not a number', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.getContract(
       'notANumber',
       function(err, data) {
@@ -176,12 +145,7 @@ describe('Smart contract - getContract', function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 describe('Smart contract - postContractEthereumSolidityFunction', function () {
-  'use strict';
-
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should call a function on a smart contract', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       [],
       refContract,
@@ -196,10 +160,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       null,
       refContract,
@@ -211,10 +172,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the parameters parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       'notAnArray',
       refContract,
@@ -226,10 +184,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       [],
       null,
@@ -241,10 +196,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       [],
       'notANumber',
@@ -256,10 +208,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the functionName parameter is null', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       [],
       refContract,
@@ -271,10 +220,7 @@ describe('Smart contract - postContractEthereumSolidityFunction', function () {
     );
   });
 
-  // //////////////////////////////////////////////////////////////////////////
-
   it('should fail because the id parameter is invalid', function (done) {
-    blockchainiz.setKeys(process.env.API_PUBLIC_KEY, process.env.API_PRIVATE_KEY);
     blockchainiz.postContractEthereumSolidityFunction(
       [],
       refContract,
