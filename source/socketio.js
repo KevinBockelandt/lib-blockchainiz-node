@@ -2,7 +2,7 @@ const config = require('./config');
 const io = require('socket.io-client');
 
 exports.connect = opt => io.connect(config.getSocketioUrl(opt.useSandbox), {
-  path: '/api/v1/socket.io/' });
+  path: config.getSocketioPath(opt.useSandbox) });
 
 exports.onErrorText = con => (callback) => {
   con.on('error_text', (event, error) => {
