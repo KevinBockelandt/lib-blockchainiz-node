@@ -34,7 +34,12 @@ exports.requestBlockchainiz = (opt, rawBody, path, method, callback) => {
     body: rawBody,
   },
   (err, res2, body2) => {
-    callback(err, res2, body2);
+    if (!err && body2 && body2.errorText) {
+      const errBlockchainiz = new Error(`Error by blockchainiz: ${body2.errorText}`);
+      callback(errBlockchainiz, res2, body2);
+    } else {
+      callback(err, res2, body2);
+    }
   });
 };
 
