@@ -2,6 +2,7 @@ const config = require('./config');
 const io = require('socket.io-client');
 
 let listenerNewBlockEthereum = false;
+const listenerContract = [];
 
 exports.connect = (opt) => {
   const connexion = io.connect(config.getSocketioUrl(opt.useSandbox), {
@@ -12,6 +13,12 @@ exports.connect = (opt) => {
     if (listenerNewBlockEthereum) {
       connexion.emit('listener', 'new_block_ethereum');
     }
+
+    listenerContract.forEach((element) => {
+      connexion.emit('listenerContract', element.idContract, element.nameEvent);
+    });
+  });
+
   return connexion;
 };
 
@@ -39,5 +46,6 @@ exports.listenerNewBlockEthereum = con => () => {
 };
 
 exports.listenerContract = con => (idContract, nameEvent) => {
+  listenerContract.push({ idContract, nameEvent });
   con.emit('listener_contract', idContract, nameEvent);
 };
