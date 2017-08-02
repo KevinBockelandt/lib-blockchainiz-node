@@ -1,8 +1,19 @@
 const config = require('./config');
 const io = require('socket.io-client');
 
-exports.connect = opt => io.connect(config.getSocketioUrl(opt.useSandbox), {
-  path: config.getSocketioPath(opt.useSandbox) });
+let listenerNewBlockEthereum = false;
+
+exports.connect = (opt) => {
+  const connexion = io.connect(config.getSocketioUrl(opt.useSandbox), {
+    path: config.getSocketioPath(opt.useSandbox),
+  });
+
+  connexion.on('reconnect', () => {
+    if (listenerNewBlockEthereum) {
+      connexion.emit('listener', 'new_block_ethereum');
+    }
+  return connexion;
+};
 
 exports.onErrorText = con => (callback) => {
   con.on('error_text', (event, error) => {
@@ -24,6 +35,7 @@ exports.onNewBlockEthereum = con => (callback) => {
 
 exports.listenerNewBlockEthereum = con => () => {
   con.emit('listener', 'new_block_ethereum');
+  listenerNewBlockEthereum = true;
 };
 
 exports.listenerContract = con => (idContract, nameEvent) => {
