@@ -1,5 +1,5 @@
 const options = {
-  sandboxUrl: 'https://sandbox.blockchainiz.io/dev/v1',
+  sandboxUrl: 'https://api.blockchainiz.io/dev/v1',
   prodUrl: 'https://api.blockchainiz.io/v1',
   sandboxSocketIoUrl: 'https://api.blockchainiz.io',
   prodSocketIoUrl: 'https://api.blockchainiz.io',
