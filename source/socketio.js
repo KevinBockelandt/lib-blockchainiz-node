@@ -15,7 +15,7 @@ exports.connect = (opt) => {
     }
 
     listenerContract.forEach((element) => {
-      connexion.emit('listenerContract', element.idContract, element.nameEvent);
+      connexion.emit('listener_contract', element.idContract, element.nameEvent);
     });
   });
 
